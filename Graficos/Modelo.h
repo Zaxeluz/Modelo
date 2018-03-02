@@ -19,6 +19,6 @@ public:
 	GLuint vertexArrayID;
 	GLuint bufferID;
 	Modelo();
-
 	void inicializarVertexArray(GLuint posicionID, GLuint colorID);
+	void dibujar(GLenum modoDibujo);
 };

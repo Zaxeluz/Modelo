@@ -35,6 +35,7 @@ GLuint vertexArrayCirculoID;
 GLuint bufferCirculoID;
 
 Modelo *figura;
+
 Shader *shader;
 
 void actualizar()
@@ -60,17 +61,19 @@ void dibujar()
 	
 	//soltar el shader
 	shader->desenlazarShader();
+
+	figura->dibujar(GL_POLYGON);
 }
 
 void inicializarFigura()
 {
 	figura = new Modelo();
 	Vertice v1 =
-	{ vec3(-1.0f, 0.5f, 0.0f), vec4(1.0f, 0.0f, 1.f, 1.0f) };
+	{ vec3(-1.0f, 0.5f, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f) };
 	Vertice v2 =
-	{ vec3(0.0f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 1.f, 1.0f) };
+	{ vec3(0.0f, -0.5f, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f) };
 	Vertice v3 =
-	{ vec3(1.0f, 0.5f, 0.0f), vec4(1.0f, 0.0f, 1.f, 1.0f) };
+	{ vec3(1.0f, 0.5f, 0.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f) };
 
 	figura->vertices.push_back(v1);
 	figura->vertices.push_back(v2);
@@ -82,11 +85,11 @@ void inicializarTriangulo()
 {
 	//Inicializar triangulo
 	Vertice v1 =
-	{ vec3(-1.0f, -0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(-1.0f, -0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 	Vertice v2 =
-	{ vec3(0.0f, 0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(0.0f, 0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 	Vertice v3 =
-	{ vec3(1.0f, -0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(1.0f, -0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 
 	triangulo.push_back(v1);
 	triangulo.push_back(v2);
@@ -97,13 +100,13 @@ void inicializarCuadrado()
 {
 	//Inicializar cuadrado
 	Vertice v1 =
-	{ vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 	Vertice v2 =
-	{ vec3(-0.5f, 0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(-0.5f, 0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 	Vertice v3 =
-	{ vec3(0.5f, 0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(0.5f, 0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 	Vertice v4 =
-	{ vec3(0.5f, -0.5f, 0.0f), vec4(1.0f,1.0f,1.f,1.0f) };
+	{ vec3(0.5f, -0.5f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f) };
 
 	cuadrado.push_back(v1);
 	cuadrado.push_back(v2);
@@ -189,6 +192,9 @@ int main()
 
 	//Desenlazar shader
 	shader->desenlazarShader();
+
+	figura->shader = shader;
+	figura->inicializarVertexArray(posicionID, colorID);
 
 	//Crear un vertex array
 	glGenVertexArrays(1, &vertexArrayID);
