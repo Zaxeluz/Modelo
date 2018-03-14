@@ -29,10 +29,24 @@ Modelo *figura;
 Modelo *cuadrado;
 
 Shader *shader;
+//Declaración de Ventana
+GLFWwindow *window;
 
 void actualizar()
 {
+	int estadoDerecha =
+	glfwGetKey(window, GLFW_KEY_RIGHT);
+	if (estadoDerecha == GLFW_PRESS) {
+		/*cuadrado->transformaciones = translate(cuadrado->transformaciones, vec3(0.0001f,0.0f,0.0f));*/
+		/*cuadrado->transformaciones = scale(cuadrado->transformaciones, vec3(1.001f, 1.001f, 1.001f));*/
+		cuadrado->transformaciones = rotate(cuadrado->transformaciones,0.00005f, vec3(1.0001f, 1.0001f, 1.0001f));
+	}
 
+	int estadoIzquierda =
+		glfwGetKey(window, GLFW_KEY_LEFT);
+	if (estadoIzquierda == GLFW_PRESS) {
+		cuadrado->transformaciones = translate(cuadrado->transformaciones, vec3(-0.0001f, 0.0f, 0.0f));
+	}
 }
 
 void dibujar()
@@ -44,7 +58,7 @@ void dibujar()
 void inicializarFigura()
 {
 	figura = new Modelo();
-	Vertice v1 =
+	Vertice v1 = 
 	{ vec4(-1.0f, 0.5f, 0.0f,1.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f) };
 	Vertice v2 =
 	{ vec4(0.0f, -0.5f, 0.0f,1.0f), vec4(0.0f, 0.0f, 0.0f, 1.0f) };
@@ -76,8 +90,6 @@ void inicializarCuadrado()
 
 int main()
 {
-	//Declaración de Ventana
-	GLFWwindow *window;
 	
 	//Propiedades de la ventana
 	GLfloat ancho = 1024;
@@ -141,10 +153,10 @@ int main()
 	shader->desenlazarShader();
 
 	figura->shader = shader;
-	figura->inicializarVertexArray(posicionID, colorID);
+	figura->inicializarVertexArray(posicionID, colorID, transformacionesID);
 
 	cuadrado->shader = shader;
-	cuadrado->inicializarVertexArray(posicionID, colorID);
+	cuadrado->inicializarVertexArray(posicionID, colorID, transformacionesID);
 
 	//Ciclo de Dibujo
 	while (!glfwWindowShouldClose(window))

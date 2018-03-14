@@ -4,7 +4,7 @@
 
 using namespace glm;
 
-class Vertice {
+struct Vertice {
 	vec4 posicion;
 	vec4 color;
 };
